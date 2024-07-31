@@ -42,6 +42,7 @@ class ProductCategoryController extends Controller
     }
     public function update(UpdateProductCategoryRequest $request, $id)
     {
+//        dd('tes');
         $category = $this->productCategory->update($request->validated(), $id);
         return ApiResponse::success([
             'data' => $category
