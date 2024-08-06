@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -29,7 +30,7 @@ class ProductRepository
             $request['code'] = Str::random(4);
             DB::commit();
             return $this->product->create($request);
-        } catch (\Illuminate\Database\QueryException $e){
+        } catch (QueryException $e){
             logger($e->getMessage());
             DB::rollBack();
             throw $e;

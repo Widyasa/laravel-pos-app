@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,14 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('/products/{id}', 'show');
     Route::post('/products/update/{id}', 'update');
     Route::post('/products/delete/{id}', 'delete');
+});
+
+Route::controller(TransactionController::class)->group(function () {
+    Route::get('/transactions', 'index');
+    Route::post('/transactions', 'store');
+    Route::get('/transactions/{id}', 'show');
+//    Route::post('/products/update/{id}', 'update');
+//    Route::post('/products/delete/{id}', 'delete');
 });
 //Route::resource('products/categories', \App\Http\Controllers\ProductCategoryController::class);
 
