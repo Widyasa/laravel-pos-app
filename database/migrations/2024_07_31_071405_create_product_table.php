@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('price');
             $table->integer('stock');
             $table->foreignIdFor(\App\Models\ProductCategory::class)

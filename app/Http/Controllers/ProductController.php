@@ -20,7 +20,7 @@ class ProductController extends Controller
     public function index() {
         $products = $this->product->findAll();
         return ApiResponse::success([
-            'products' => $products
+            $products
         ], 'Fetched', 'Product');
     }
 
@@ -38,13 +38,13 @@ class ProductController extends Controller
     {
         $product = $this->product->findById($id);
         return ApiResponse::success([
-            'data' => $product
+            $product
         ], 'Fetched', 'Product');
     }
     public function update(UpdateProductRequest $request, $id)
     {
         try {
-            $product = $this->productCategory->update($request->validated(), $id);
+            $product = $this->product->update($request->validated(), $id);
             return ApiResponse::success([
                 'data' => $product
             ], 'Update', 'Product');

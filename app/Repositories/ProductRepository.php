@@ -17,7 +17,13 @@ class ProductRepository
 
     public function findAll()
     {
-        return $this->product->with('product_category')->latest()->paginate(10);
+        $search = \request('search');
+        return $this->product
+            ->with('product_category')
+            ->where('name', 'like', '%'.$search.'%')
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
     }
     public function findById(int $product_id): Product {
         return $this->product->where('id', $product_id)->with('product_category')->first();
@@ -27,7 +33,8 @@ class ProductRepository
     {
         DB::beginTransaction();
         try{
-            $request['code'] = Str::random(4);
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $request['code'] = 'PRD - ' . date('dmYHis');
             DB::commit();
             return $this->product->create($request);
         } catch (QueryException $e){

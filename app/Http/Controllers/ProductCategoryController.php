@@ -19,7 +19,7 @@ class ProductCategoryController extends Controller
     public function index() {
         $categories = $this->productCategory->findAll();
         return ApiResponse::success([
-            'categories' => $categories
+            $categories
         ], 'Fetched', 'Product Cateogries');
     }
 
@@ -37,7 +37,7 @@ class ProductCategoryController extends Controller
     {
         $category = $this->productCategory->findById($id);
         return ApiResponse::success([
-            'data' => $category
+            $category
         ], 'Fetched', 'Product Category');
     }
     public function update(UpdateProductCategoryRequest $request, $id)

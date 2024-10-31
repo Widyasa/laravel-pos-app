@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,22 +27,30 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
 });
-
+Route::get("me",function (){
+    $userInfo=auth()->guard('api')->user();
+    if ($userInfo!==null)
+    {
+        return "User is logged in. id:".$userInfo;
+    }else{
+        return "User is not logged in.";
+    }
+});
 Route::middleware('auth:sanctum')->group(function(){
     Route::controller(ProductCategoryController::class)->group(function () {
-        Route::get('/product/categories', 'index');
-        Route::post('/product/categories', 'store');
-        Route::get('/product/categories/{id}', 'show');
-        Route::put('/product/categories/update/{id}', 'update');
-        Route::delete('/product/categories/delete/{id}', 'delete');
+        Route::get('/product-categories', 'index');
+        Route::post('/product-categories', 'store');
+        Route::get('/product-categories/{id}', 'show');
+        Route::patch('/product-categories/{id}', 'update');
+        Route::delete('/product-categories/{id}', 'delete');
     });
 
     Route::controller(ProductController::class)->group(function () {
         Route::get('/products', 'index');
         Route::post('/products', 'store');
         Route::get('/products/{id}', 'show');
-        Route::put('/products/update/{id}', 'update');
-        Route::delete('/products/delete/{id}', 'delete');
+        Route::patch('/products/{id}', 'update');
+        Route::delete('/products/{id}', 'delete');
     });
 
     Route::controller(TransactionController::class)->group(function () {

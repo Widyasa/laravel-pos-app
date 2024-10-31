@@ -12,7 +12,12 @@ class ProductCategoryRepository
 
     public function findAll()
     {
-        return $this->productCategory->latest()->get();
+        $search = \request('search');
+        return $this->productCategory
+            ->where('name', 'like', '%'.$search.'%')
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
     }
     public function findById(int $category_id): ProductCategory {
         return $this->productCategory->where('id', $category_id)->first();
