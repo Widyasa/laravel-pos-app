@@ -35,7 +35,7 @@ class TransactionRepository
                 "total_exchange" => $request['total_exchange']
             ]);
             foreach ($request['products'] as $item) {
-                $product = $this->product->find($item['product_id']);
+                $product = $this->product->find(id: $item['product_id']);
                 $product->decreaseStock($item['quantity']);
 
                 $this->transactionItem->create([
